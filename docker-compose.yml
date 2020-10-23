@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  app:
+    image: registry.hosted-domains.com/public/status-page:latest
+    env_file: settings.env
+    deploy:
+      replicas: 1
+    ports:
+      - "443:443"
