@@ -15,6 +15,15 @@ nginx
 echo "Copying static..."
 mkdir -p "${DATA_DIR}/html"
 cp -r source/static "${DATA_DIR}/html"
+if [[ -n "${SETTING_THEME}" ]];then
+    SETTING_THEME=$(echo "${SETTING_THEME}" | tr '[:upper:]' '[:lower:]')
+    if [[ -f "source/themes/${SETTING_THEME}.min.css" ]];then
+        cp -f "source/themes/${SETTING_THEME}.min.css" "${DATA_DIR}/html/static/bootstrap.min.css"
+        echo "Using theme: ${SETTING_THEME}"
+    else
+        echo "Theme file source/themes/${SETTING_THEME}.min.css not found, using default."
+    fi
+fi
 ls -Ral "${DATA_DIR}/html"
 
 echo "Starting loop..."
